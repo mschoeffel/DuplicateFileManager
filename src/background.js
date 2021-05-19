@@ -1,7 +1,7 @@
 import {
   app, protocol, BrowserWindow, ipcMain,
 } from 'electron';
-const { autoUpdater } = require("electron-updater");
+import { autoUpdater } from "electron-updater";
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 import fs from 'fs';
@@ -40,6 +40,7 @@ async function createWindow() {
     createProtocol('app');
     // Load the index.html when not in development
     win.loadURL('app://./index.html');
+    autoUpdater.checkForUpdatesAndNotify();
   }
 }
 
@@ -71,7 +72,6 @@ app.on('ready', async () => {
     }
   }
   console.log(app.getVersion);
-  autoUpdater.checkForUpdatesAndNotify();
   protocol.registerFileProtocol('atom', (request, callback) => {
     try {
       const url = request.url.substr(7);

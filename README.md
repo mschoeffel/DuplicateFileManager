@@ -1,4 +1,4 @@
-# filecomparator
+# Duplicate File Manager
 
 ## Project setup
 ```

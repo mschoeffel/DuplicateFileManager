@@ -16,9 +16,11 @@ protocol.registerSchemesAsPrivileged([
   {scheme: 'app', privileges: {secure: true, standard: true}},
 ]);
 
+let win: BrowserWindow;
+
 async function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -82,6 +84,35 @@ app.on('ready', async () => {
   });
 
   createWindow();
+
+  autoUpdater.checkForUpdates();
+});
+
+autoUpdater.on('checking-for-update', () => {
+  win.webContents.send('electron-update', {'message': 'checking for update'});
+});
+
+autoUpdater.on('update-available', (info) => {
+  win.webContents.send('electron-update', {'message': 'update available'});
+});
+
+autoUpdater.on('update-not-available', (info) => {
+  win.webContents.send('electron-update', {'message': 'no update available'});
+});
+
+autoUpdater.on('error', (err) => {
+  win.webContents.send('electron-update', {'message': 'update error'});
+});
+
+autoUpdater.on('download-progress', (progressObj) => {
+  win.webContents.send('electron-update', {'message': 'update progress'});
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  win.webContents.send('electron-update', {'message': 'update downloaded'});
+  setTimeout(function() {
+    autoUpdater.quitAndInstall();  
+  }, 5000);
 });
 
 ipcMain.on('read-file', (event, arg) => {

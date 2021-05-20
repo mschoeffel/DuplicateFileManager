@@ -2,9 +2,9 @@
   <div>
     <v-app-bar color="primary" dark>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-
       <v-toolbar-title>Duplicate File Manager</v-toolbar-title>
     </v-app-bar>
+    <v-alert v-if="alertText.length > 0" type="info" dismissible>{{alertText}}</v-alert>
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>
@@ -73,6 +73,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import {app} from '@electron/remote';
+import {ipcRenderer} from 'electron';
 
 export default Vue.extend({
   name: 'Menu',
@@ -81,6 +82,7 @@ export default Vue.extend({
       currentAppVersion: app.getVersion(),
       drawer: false,
       currentYear: new Date().getFullYear(),
+      alertText: '',
     };
   },
   methods: {
@@ -90,6 +92,19 @@ export default Vue.extend({
     routeDirect(p: string): void {
       window.open(p);
     },
+    showAlert(message: any){
+      this.alertText = message;
+    }
+  },
+  mounted() {
+    ipcRenderer.on(
+      'electron-update',
+      function (evt: any, message: any) {
+        console.log(evt);
+        console.log(message);
+        this.showAlert(message);
+      }.bind(this)
+    );
   },
 });
 </script>

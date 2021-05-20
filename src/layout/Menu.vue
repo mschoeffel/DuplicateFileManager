@@ -77,7 +77,7 @@ import {ipcRenderer} from 'electron';
 
 export default Vue.extend({
   name: 'Menu',
-  data(): {currentAppVersion: string; drawer: boolean; currentYear: number} {
+  data(): {currentAppVersion: string; drawer: boolean; currentYear: number, alertText: string;} {
     return {
       currentAppVersion: app.getVersion(),
       drawer: false,
@@ -92,18 +92,16 @@ export default Vue.extend({
     routeDirect(p: string): void {
       window.open(p);
     },
-    showAlert(message: any){
+    showAlert(event:any, message: any){
+      console.log(event);
+      console.log(message);
       this.alertText = message;
     }
   },
   mounted() {
     ipcRenderer.on(
       'electron-update',
-      function (evt: any, message: any) {
-        console.log(evt);
-        console.log(message);
-        this.showAlert(message);
-      }.bind(this)
+      this.showAlert.bind(this)
     );
   },
 });

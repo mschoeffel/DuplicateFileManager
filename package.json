@@ -1,6 +1,6 @@
 {
   "name": "duplicatefilemanager",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "@mschoeffel",
   "description": "Programm to find and manage duplicate files of a directory",
   "private": true,

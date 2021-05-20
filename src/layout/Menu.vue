@@ -93,10 +93,8 @@ export default Vue.extend({
       window.open(p);
     },
     showAlert(event:any, message: any){
-      console.log(event);
-      console.log(message);
-      this.alertText = message;
-    }
+      this.alertText = message.message;
+    },
   },
   mounted() {
     ipcRenderer.on(

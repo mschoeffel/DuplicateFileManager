@@ -1,16 +1,19 @@
-import {
-  app, protocol, BrowserWindow, ipcMain,
-} from 'electron';
-import { autoUpdater } from "electron-updater";
-import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
-import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
+'use strict';
+
+import {app, protocol, BrowserWindow, ipcMain} from 'electron';
+import {createProtocol} from 'vue-cli-plugin-electron-builder/lib';
+import installExtension, {VUEJS_DEVTOOLS} from 'electron-devtools-installer';
+import {autoUpdater} from 'electron-updater';
+const isDevelopment = process.env.NODE_ENV !== 'production';
 import fs from 'fs';
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+//Wait for: https://github.com/electron/remote/issues/52 / https://github.com/electron/remote/pull/58
+import {initialize} from '@electron/remote/dist/src/main';
+initialize();
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } },
+  {scheme: 'app', privileges: {secure: true, standard: true}},
 ]);
 
 async function createWindow() {
@@ -19,22 +22,19 @@ async function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-
       // Required for Spectron testing
-      //enableRemoteModule: !!process.env.IS_TEST,
       enableRemoteModule: true,
 
       // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html
-      // #node-integration for more info
-      nodeIntegration: true, // process.env.ELECTRON_NODE_INTEGRATION,
+      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
+      nodeIntegration: true,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
     },
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL as string);
     if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
     createProtocol('app');
@@ -71,46 +71,46 @@ app.on('ready', async () => {
       console.error('Vue Devtools failed to install:', e.toString());
     }
   }
-  console.log(app.getVersion);
+
   protocol.registerFileProtocol('atom', (request, callback) => {
     try {
       const url = request.url.substr(7);
-      callback({ path: url });
+      callback({path: url});
     } catch (err) {
       console.log('Error atom %v', err);
     }
   });
+
   createWindow();
 });
 
 ipcMain.on('read-file', (event, arg) => {
   try {
     const raw = fs.readFileSync(arg, 'utf8');
-    event.returnValue = { data: raw, error: null };
-  } catch(err) {
-    event.returnValue = { data: null, error: err };
-  } 
+    event.returnValue = {data: raw, error: null};
+  } catch (err) {
+    event.returnValue = {data: null, error: err};
+  }
 });
 
 ipcMain.on('exists-file', (event, arg) => {
   try {
     if (fs.existsSync(arg)) {
       event.returnValue = true;
-    } else{
+    } else {
       event.returnValue = false;
     }
-  } catch(err) {
+  } catch (err) {
     event.returnValue = false;
   }
 });
 
-
 ipcMain.on('delete-file', (event, arg) => {
   try {
     fs.unlinkSync(arg);
-    event.returnValue = { data: null, error: null };
+    event.returnValue = {data: null, error: null};
   } catch (err) {
-    event.returnValue = { data: null, error: err };
+    event.returnValue = {data: null, error: err};
   }
 });
 
@@ -119,16 +119,16 @@ ipcMain.on('write-json-file', (event, arg) => {
     const path = arg.path;
     const data = arg.data;
     fs.writeFileSync(path, JSON.stringify(data));
-    event.returnValue = { data: null, error: null };
+    event.returnValue = {data: null, error: null};
   } catch (err) {
-    event.returnValue = { data: null, error: err };
+    event.returnValue = {data: null, error: err};
   }
 });
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {
-    process.on('message', (data) => {
+    process.on('message', data => {
       if (data === 'graceful-exit') {
         app.quit();
       }

@@ -1,9 +1,9 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+import VueRouter, {RouteConfig} from 'vue-router';
 
 Vue.use(VueRouter);
 
-const routes = [
+const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
@@ -15,9 +15,9 @@ const routes = [
     component: () => import('../views/Analyze.vue'),
   },
   {
-    path: '/result',
-    name: 'Result',
-    component: () => import('../views/Result.vue'),
+    path: '/manage',
+    name: 'Manage',
+    component: () => import('../views/Manage.vue'),
   },
   {
     path: '/help',
@@ -34,10 +34,15 @@ const routes = [
     name: 'Settings',
     component: () => import('../views/Settings.vue'),
   },
+  {
+    path: '/info',
+    name: 'Info',
+    component: () => import('../views/Info.vue'),
+  },
 ];
 
 const router = new VueRouter({
-  mode: process.env.IS_ELECTRON ? 'hash' : 'history',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
 });

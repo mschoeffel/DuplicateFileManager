@@ -1,29 +1,21 @@
 <template>
   <v-app>
     <Menu>
-      <router-view/>
+      <router-view />
     </Menu>
   </v-app>
 </template>
 
-<script>
-import Menu from './templates/Menu.vue';
+<script lang="ts">
+import Vue from 'vue';
+import Menu from './layout/Menu.vue';
 
-export default {
+export default Vue.extend({
   name: 'App',
+
+  data: () => ({}),
   components: {
     Menu,
   },
-  data: () => ({
-    //
-  }),
-};
+});
 </script>
-<style>
-  body {
-    overflow-x: hidden;
-  }
-  ::-webkit-scrollbar {
-    display: none;
-  }
-</style>

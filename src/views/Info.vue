@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Home</v-card-title>
-      <v-card-subtitle>Dashboard of this software</v-card-subtitle>
+      <v-card-title>Info</v-card-title>
+      <v-card-subtitle>Information to this software</v-card-subtitle>
       <v-card-text>TBD</v-card-text>
     </v-card>
   </v-container>
@@ -12,6 +12,6 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'Home',
+  name: 'Info',
 });
 </script>

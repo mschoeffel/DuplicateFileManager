@@ -1,14 +1,17 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Manage Result</v-card-title>
-      <v-card-subtitle>Read Result File and manage </v-card-subtitle>
+      <v-card-title>Manage</v-card-title>
+      <v-card-subtitle
+        >Select the result.json file of the analyzed directory you want to
+        manage</v-card-subtitle
+      >
       <v-card-text>
         <v-row class="text-center">
           <v-col cols="12">
             <v-file-input
               @change="showFileData"
-              v-model="fileinput"
+              v-model="inputFile"
             ></v-file-input>
           </v-col>
         </v-row>
@@ -26,7 +29,7 @@
           <v-col cols="12">
             <v-expansion-panels>
               <v-expansion-panel
-                v-for="(value, name, index) in shownfiles"
+                v-for="(value, name, index) in shownFiles"
                 :key="name"
               >
                 <v-expansion-panel-header
@@ -34,15 +37,15 @@
                 >
                   {{ index + 1 + (currentPage - 1) * pageSize }}
                   <template v-if="value.length <= 1" v-slot:actions>
-                    <v-icon color="teal"> mdi-check </v-icon>
+                    <v-icon color="success"> mdi-check </v-icon>
                   </template>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                  <DuplicateFilesComp
-                    :samefiles="value"
+                  <DuplicateFilesList
+                    :duplicateFiles="value"
                     @remove="removeItem($event, name)"
                   >
-                  </DuplicateFilesComp>
+                  </DuplicateFilesList>
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
@@ -53,31 +56,46 @@
   </v-container>
 </template>
 
-<script>
-import DuplicateFilesComp from '../components/DuplicateFiles.vue';
+<script lang="ts">
+import Vue from 'vue';
+import DuplicateFilesList from '@/components/DuplicateFilesList.vue';
+import {DuplicateFile} from '@/model/DuplicateFile';
 
-const { ipcRenderer } = require('electron');
+import {ipcRenderer} from 'electron';
 
-export default {
-  data: () => ({
-    fileinput: {},
-    duplicatefiles: {},
-    shownfiles: {},
-    showResult: false,
-    currentPage: 1,
-    maxPages: 6,
-    pageSize: 10,
-  }),
+export default Vue.extend({
+  data(): {
+    duplicateFiles: Record<string, DuplicateFile[]>;
+    shownFiles: Record<string, DuplicateFile[]>;
+    inputFile: File;
+    showResult: boolean;
+    currentPage: number;
+    maxPages: number;
+    pageSize: number;
+  } {
+    return {
+      duplicateFiles: {},
+      shownFiles: {},
+      inputFile: {} as File,
+      showResult: false,
+      currentPage: 1,
+      maxPages: 6,
+      pageSize: 10,
+    };
+  },
   components: {
-    DuplicateFilesComp,
+    DuplicateFilesList,
   },
   methods: {
     showFileData() {
-      if (this.fileinput != null && this.fileinput.path != null) {
-        const result = ipcRenderer.sendSync('read-file', this.fileinput.path);
+      if (this.inputFile != null && this.inputFile.path != null) {
+        const result = ipcRenderer.sendSync('read-file', this.inputFile.path);
         if (!result.error) {
-          this.duplicatefiles = JSON.parse(result.data);
-          this.maxPages = Math.floor(Object.keys(this.duplicatefiles).length / this.pageSize) + 1;
+          this.duplicateFiles = JSON.parse(result.data);
+          this.maxPages =
+            Math.floor(
+              Object.keys(this.duplicateFiles).length / this.pageSize
+            ) + 1;
           this.generateVisibleData();
           this.showResult = true;
         } else {
@@ -86,32 +104,36 @@ export default {
         }
       } else {
         this.showResult = false;
-        this.duplicatefiles = {};
+        this.duplicateFiles = {};
       }
     },
-    removeItem(id, name) {
-      this.duplicatefiles[name] = this.duplicatefiles[name].filter(
-        (i) => i.id !== id,
+    removeItem(id: number, name: string) {
+      this.duplicateFiles[name] = this.duplicateFiles[name].filter(
+        i => i.id !== id
       );
-      console.log(this.duplicatefiles);
+      this.shownFiles[name] = this.shownFiles[name].filter(i => i.id !== id);
       this.writeJson();
     },
     writeJson() {
-      ipcRenderer.sendSync('write-json-file', { path: this.fileinput.path, data: this.duplicatefiles });
+      ipcRenderer.sendSync('write-json-file', {
+        path: this.inputFile.path,
+        data: this.duplicateFiles,
+      });
     },
     generateVisibleData() {
-      const temp = {};
+      const temp: Record<string, DuplicateFile[]> = {};
       const start = (this.currentPage - 1) * this.pageSize;
       const end = this.pageSize * this.currentPage;
-      const keys = Object.keys(this.duplicatefiles);
+      const keys = Object.keys(this.duplicateFiles);
       for (let i = start; i < end && i < keys.length; i += 1) {
-        temp[keys[i]] = this.duplicatefiles[keys[i]];
+        temp[keys[i]] = this.duplicateFiles[keys[i]];
       }
-      this.shownfiles = temp;
+      this.shownFiles = temp;
+      console.log(this.shownFiles);
     },
     navigatePage() {
       this.generateVisibleData();
     },
   },
-};
+});
 </script>

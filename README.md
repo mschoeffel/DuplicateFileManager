@@ -1,4 +1,4 @@
-# Duplicate File Manager
+# duplicatefilemanagerts
 
 ## Project setup
 ```

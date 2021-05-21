@@ -4,7 +4,9 @@
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>Duplicate File Manager</v-toolbar-title>
     </v-app-bar>
-    <v-alert v-if="alertText.length > 0" type="info" dismissible>{{alertText}}</v-alert>
+    <v-alert v-if="alertText.length > 0" type="info" dismissible>{{
+      alertText
+    }}</v-alert>
 
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>
@@ -77,7 +79,12 @@ import {ipcRenderer} from 'electron';
 
 export default Vue.extend({
   name: 'Menu',
-  data(): {currentAppVersion: string; drawer: boolean; currentYear: number, alertText: string;} {
+  data(): {
+    currentAppVersion: string;
+    drawer: boolean;
+    currentYear: number;
+    alertText: string;
+  } {
     return {
       currentAppVersion: app.getVersion(),
       drawer: false,
@@ -92,15 +99,12 @@ export default Vue.extend({
     routeDirect(p: string): void {
       window.open(p);
     },
-    showAlert(event:any, message: any){
+    showAlert(event: any, message: any) {
       this.alertText = message.message;
     },
   },
   mounted() {
-    ipcRenderer.on(
-      'electron-update',
-      this.showAlert.bind(this)
-    );
+    ipcRenderer.on('electron-update', this.showAlert.bind(this));
   },
 });
 </script>

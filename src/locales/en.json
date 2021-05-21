@@ -1,3 +1,8 @@
 {
-  "message": "hello i18n !!"
+  "global": {
+      "settings": {
+          "language": "Language",
+          "dark-mode": "Dark Mode"
+      }
+  }
 }

@@ -76,7 +76,13 @@ app.on('ready', async () => {
 
   protocol.registerFileProtocol('atom', (request, callback) => {
     try {
-      const url = request.url.substr(7);
+      let url = request.url.substr(7);
+      url = url.replaceAll('%C3%84', 'Ä');
+      url = url.replaceAll('%C3%96', 'Ö');
+      url = url.replaceAll('%C3%9C', 'Ü');
+      url = url.replaceAll('%C3%A4', 'ä');
+      url = url.replaceAll('%C3%B6', 'ö');
+      url = url.replaceAll('%C3%BC', 'ü');
       callback({path: url});
     } catch (err) {
       console.log('Error atom %v', err);
@@ -89,29 +95,29 @@ app.on('ready', async () => {
 });
 
 autoUpdater.on('checking-for-update', () => {
-  win.webContents.send('electron-update', {'message': 'checking for update'});
+  win.webContents.send('electron-update', {message: 'checking for update'});
 });
 
-autoUpdater.on('update-available', (info) => {
-  win.webContents.send('electron-update', {'message': 'update available'});
+autoUpdater.on('update-available', info => {
+  win.webContents.send('electron-update', {message: 'update available'});
 });
 
-autoUpdater.on('update-not-available', (info) => {
-  win.webContents.send('electron-update', {'message': 'no update available'});
+autoUpdater.on('update-not-available', info => {
+  win.webContents.send('electron-update', {message: 'no update available'});
 });
 
-autoUpdater.on('error', (err) => {
-  win.webContents.send('electron-update', {'message': 'update error'});
+autoUpdater.on('error', err => {
+  win.webContents.send('electron-update', {message: 'update error'});
 });
 
-autoUpdater.on('download-progress', (progressObj) => {
-  win.webContents.send('electron-update', {'message': 'update progress'});
+autoUpdater.on('download-progress', progressObj => {
+  win.webContents.send('electron-update', {message: 'update progress'});
 });
 
-autoUpdater.on('update-downloaded', (info) => {
-  win.webContents.send('electron-update', {'message': 'update downloaded'});
-  setTimeout(function() {
-    autoUpdater.quitAndInstall();  
+autoUpdater.on('update-downloaded', info => {
+  win.webContents.send('electron-update', {message: 'update downloaded'});
+  setTimeout(function () {
+    autoUpdater.quitAndInstall();
   }, 5000);
 });
 

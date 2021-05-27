@@ -1,11 +1,8 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Manage</v-card-title>
-      <v-card-subtitle
-        >Select the result.json file of the analyzed directory you want to
-        manage</v-card-subtitle
-      >
+      <v-card-title>{{ $t('manage.heading') }}</v-card-title>
+      <v-card-subtitle>{{ $t('manage.description') }}</v-card-subtitle>
       <v-card-text>
         <v-row class="text-center">
           <v-col cols="12">

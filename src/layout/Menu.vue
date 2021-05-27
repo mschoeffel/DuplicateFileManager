@@ -15,19 +15,19 @@
             <v-list-item-icon>
               <v-icon>mdi-home-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title>{{ $t('home.heading') }}</v-list-item-title>
           </v-list-item>
           <v-list-item @click="route('/analyze')">
             <v-list-item-icon>
               <v-icon>mdi-file-search-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Analyze</v-list-item-title>
+            <v-list-item-title>{{ $t('analyze.heading') }}</v-list-item-title>
           </v-list-item>
           <v-list-item @click="route('/manage')">
             <v-list-item-icon>
               <v-icon>mdi-file-remove-outline</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Manage</v-list-item-title>
+            <v-list-item-title>{{ $t('manage.heading') }}</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
@@ -38,25 +38,27 @@
               <v-list-item-icon>
                 <v-icon>mdi-cog-outline</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Settings</v-list-item-title>
+              <v-list-item-title>{{
+                $t('settings.heading')
+              }}</v-list-item-title>
             </v-list-item>
             <v-list-item @click="route('/help')">
               <v-list-item-icon>
                 <v-icon>mdi-help</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Help</v-list-item-title>
+              <v-list-item-title>{{ $t('help.heading') }}</v-list-item-title>
             </v-list-item>
             <v-list-item @click="route('/support')">
               <v-list-item-icon>
                 <v-icon>mdi-heart-outline</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Support</v-list-item-title>
+              <v-list-item-title>{{ $t('support.heading') }}</v-list-item-title>
             </v-list-item>
             <v-list-item @click="route('/info')">
               <v-list-item-icon>
                 <v-icon>mdi-information-outline</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Info</v-list-item-title>
+              <v-list-item-title>{{ $t('info.heading') }}</v-list-item-title>
             </v-list-item>
           </v-list-item-group>
         </v-list>

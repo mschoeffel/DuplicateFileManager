@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Home</v-card-title>
-      <v-card-subtitle>Dashboard of this software</v-card-subtitle>
+      <v-card-title>{{ $t('home.heading') }}</v-card-title>
+      <v-card-subtitle>{{ $t('home.description') }}</v-card-subtitle>
       <v-card-text>TBD</v-card-text>
     </v-card>
   </v-container>

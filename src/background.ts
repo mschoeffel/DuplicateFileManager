@@ -1,6 +1,6 @@
 'use strict';
 
-import {app, protocol, BrowserWindow, ipcMain} from 'electron';
+import {app, protocol, BrowserWindow, Menu, ipcMain} from 'electron';
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib';
 import installExtension, {VUEJS_DEVTOOLS} from 'electron-devtools-installer';
 import {autoUpdater} from 'electron-updater';
@@ -19,6 +19,8 @@ protocol.registerSchemesAsPrivileged([
 let win: BrowserWindow;
 
 async function createWindow() {
+  Menu.setApplicationMenu(null);
+
   // Create the browser window.
   win = new BrowserWindow({
     width: 800,
@@ -32,6 +34,8 @@ async function createWindow() {
       nodeIntegration: true,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
     },
+    icon: 'src/assets/icon.png',
+    title: 'Duplicate File Manager',
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {

@@ -1,8 +1,48 @@
 {
   "global": {
-      "settings": {
-          "language": "Language",
-          "dark-mode": "Dark Mode"
+    "settings": {
+      "language": "Language",
+      "dark-mode": "Dark Mode"
+    }
+  },
+  "analyze": {
+    "heading": "Analyze",
+    "description": "Analyze the directory"
+  },
+  "help": {
+    "heading": "Help",
+    "description": "Instructions on how to use this software"
+  },
+  "home": {
+    "heading": "Home",
+    "description": "Dashboard of this software"
+  },
+  "info": {
+    "heading": "Info",
+    "description": "Information to this software",
+    "changelog": {
+      "heading": "Changelog",
+      "description": "Information about update changes",
+      "025": {
+        "summary": "Translation, Icon & Graphics",
+        "translation": "Added english and german as languages",
+        "icon": "Changed icon",
+        "toolbar": "Removed toolbar",
+        "title": "Changed title",
+        "changelog": "Added Changelog"
       }
+    }
+  },
+  "manage": {
+    "heading": "Manage",
+    "description": "Select the result.json file of the analyzed directory you want to manage"
+  },
+  "settings": {
+    "heading": "Settings",
+    "description": "Settings of this software"
+  },
+  "support": {
+    "heading": "Support",
+    "description": "How to support this project"
   }
 }

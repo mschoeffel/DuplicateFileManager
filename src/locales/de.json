@@ -1,8 +1,48 @@
 {
-    "global": {
-        "settings": {
-            "language": "Sprache",
-            "dark-mode": "Dunkle Ansicht"
-        }
+  "global": {
+    "settings": {
+      "language": "Sprache",
+      "dark-mode": "Dunkle Ansicht"
     }
+  },
+  "analyze": {
+    "heading": "Analsieren",
+    "description": "Analysieren eines Ordners"
+  },
+  "help": {
+    "heading": "Hilfe",
+    "description": "Anleitung für dieses Programm"
+  },
+  "home": {
+    "heading": "Home",
+    "description": "Dashboard des Programms"
+  },
+  "info": {
+    "heading": "Info",
+    "description": "Informationen über dieses Programm",
+    "changelog": {
+      "heading": "Versionen",
+      "description": "Informationen über die Versionen",
+      "025": {
+        "summary": "Übersetzung, Icon & Grafik",
+        "translation": "Englisch und Deutsch wurde hinzugefügt",
+        "icon": "Icon wurde angepasst",
+        "toolbar": "Toolbar wurde entfernt",
+        "title": "Titel wurde abgeändert",
+        "changelog": "Changelog wurde hinzugefügt"
+      }
+    }
+  },
+  "manage": {
+    "heading": "Verwalten",
+    "description": "Wählen Sie die result.json Datei aus dem bereits analysierten Ordner aus um mit der Verwaltung zu beginnen"
+  },
+  "settings": {
+    "heading": "Einstellungen",
+    "description": "Einstellungen des Programms"
+  },
+  "support": {
+    "heading": "Unterstützen",
+    "description": "Wie man das Programm und Projekt unterstützen kann"
   }
+}

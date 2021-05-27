@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Support</v-card-title>
-      <v-card-subtitle>How to support this project</v-card-subtitle>
+      <v-card-title>{{ $t('support.heading') }}</v-card-title>
+      <v-card-subtitle>{{ $t('support.description') }}</v-card-subtitle>
       <v-card-text>TBD</v-card-text>
     </v-card>
   </v-container>

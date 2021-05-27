@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>Settings</v-card-title>
-      <v-card-subtitle>Settings of this directory</v-card-subtitle>
+      <v-card-title>{{ $t('settings.heading') }}</v-card-title>
+      <v-card-subtitle>{{ $t('settings.description') }}</v-card-subtitle>
       <v-card-text>
         <LanguageSelector></LanguageSelector>
       </v-card-text>

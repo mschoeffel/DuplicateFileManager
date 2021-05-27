@@ -1,8 +1,9 @@
 {
   "name": "duplicatefilemanager",
-  "version": "0.2.4",
+  "productName": "Duplicate File Manager",
+  "version": "0.2.5",
   "author": "@mschoeffel",
-  "description": "Programm to find and manage duplicate files of a directory",
+  "description": "Program to find and manage duplicate files of a directory",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

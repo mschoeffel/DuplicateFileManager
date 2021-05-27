@@ -23,13 +23,16 @@
     "changelog": {
       "heading": "Versionen",
       "description": "Informationen über die Versionen",
-      "025": {
-        "summary": "Übersetzung, Icon & Grafik",
-        "translation": "Englisch und Deutsch wurde hinzugefügt",
-        "icon": "Icon wurde angepasst",
-        "toolbar": "Toolbar wurde entfernt",
+      "026": {
+        "summary": "Icon und Titel",
         "title": "Titel wurde abgeändert",
-        "changelog": "Changelog wurde hinzugefügt"
+        "icon": "Icon wurde angepasst"
+      },
+      "025": {
+        "summary": "Übersetzung und Veränderungshistorie",
+        "translation": "Englisch und Deutsch wurde hinzugefügt",
+        "toolbar": "Toolbar wurde entfernt",
+        "changelog": "Veränderungshistorie wurde hinzugefügt"
       }
     }
   },

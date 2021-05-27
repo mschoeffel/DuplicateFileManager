@@ -23,12 +23,15 @@
     "changelog": {
       "heading": "Changelog",
       "description": "Information about update changes",
-      "025": {
-        "summary": "Translation, Icon & Graphics",
-        "translation": "Added english and german as languages",
+      "026": {
+        "summary": "Icon and Title",
         "icon": "Changed icon",
+        "title": "Changed title"
+      },
+      "025": {
+        "summary": "Translation and Changelog",
+        "translation": "Added english and german as languages",
         "toolbar": "Removed toolbar",
-        "title": "Changed title",
         "changelog": "Added Changelog"
       }
     }

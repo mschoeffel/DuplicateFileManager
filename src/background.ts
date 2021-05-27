@@ -34,7 +34,6 @@ async function createWindow() {
       nodeIntegration: true,
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
     },
-    icon: 'src/assets/icon.png',
     title: 'Duplicate File Manager',
   });
 

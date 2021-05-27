@@ -1,7 +1,7 @@
 {
   "name": "duplicatefilemanager",
   "productName": "Duplicate File Manager",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "author": "@mschoeffel",
   "description": "Program to find and manage duplicate files of a directory",
   "private": true,

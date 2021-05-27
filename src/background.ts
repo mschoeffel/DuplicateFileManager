@@ -45,7 +45,6 @@ async function createWindow() {
     createProtocol('app');
     // Load the index.html when not in development
     win.loadURL('app://./index.html');
-    autoUpdater.checkForUpdatesAndNotify();
   }
 }
 
@@ -98,27 +97,45 @@ app.on('ready', async () => {
 });
 
 autoUpdater.on('checking-for-update', () => {
-  win.webContents.send('electron-update', {message: 'checking for update'});
+  win.webContents.send('electron-update', {
+    state: 'checking',
+    message: 'checking for update',
+  });
 });
 
 autoUpdater.on('update-available', info => {
-  win.webContents.send('electron-update', {message: 'update available'});
+  win.webContents.send('electron-update', {
+    state: 'available',
+    message: 'update available',
+  });
 });
 
 autoUpdater.on('update-not-available', info => {
-  win.webContents.send('electron-update', {message: 'no update available'});
+  win.webContents.send('electron-update', {
+    state: 'none-available',
+    message: 'no update available',
+  });
 });
 
 autoUpdater.on('error', err => {
-  win.webContents.send('electron-update', {message: 'update error'});
+  win.webContents.send('electron-update', {
+    state: 'error',
+    message: 'update error',
+  });
 });
 
 autoUpdater.on('download-progress', progressObj => {
-  win.webContents.send('electron-update', {message: 'update progress'});
+  win.webContents.send('electron-update', {
+    state: 'downloading',
+    message: 'update downloading',
+  });
 });
 
 autoUpdater.on('update-downloaded', info => {
-  win.webContents.send('electron-update', {message: 'update downloaded'});
+  win.webContents.send('electron-update', {
+    state: 'downloaded',
+    message: 'update downloaded',
+  });
   setTimeout(function () {
     autoUpdater.quitAndInstall();
   }, 5000);

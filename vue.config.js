@@ -11,7 +11,7 @@ module.exports = {
       builderOptions: {
         publish: ['github'],
         win: {
-          icon: "build/icons/icon.png",
+          icon: 'build/icons/icon.png',
         },
       },
       mainProcessTypeChecking: true, // Manually enable type checking during webpack bundling for background file.
